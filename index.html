@@ -23,15 +23,23 @@
         <section class="row search">
             <form class= "col-md-3">
                 <div class="form-group">
-                  <label for="search-bar">Search for a City:</label>
-                  <input type="text" class="form-control" id="search-bar" placeholder="Enter City...">
-                </div>
-                <button type="submit" class="btn btn-lg btn-primary form-control">Submit</button>
-              </form>
-
-            <div class = "col-md-9">
+                  <label for="srch-bar">Search for a City:</label>
+                  <input type="text" class="form-control" id="srch-bar" placeholder="Enter City...">
                 
+                <button id ="srch-btn" type="submit" class="btn btn-lg btn-primary form-control">Submit</button>
             </div>
+            </form>
+
+            <div class = "col-md-9 border border-dark border-3 rounded">
+                <h1>Current Weather:</h1>
+              <p>Temperature:</p>
+              <p>Humidity:</p>
+              <p>Wind:</p>
+              <p>UV Index:</p>
+            </div>
+        
+                
+            
             <ul id="search-list"></ul>
         </section>
 
