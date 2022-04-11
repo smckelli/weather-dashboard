@@ -6,16 +6,15 @@ function getLocationData(city) {
         .then(function (response) {
             return response.json()
         })
-        .then(function (locationData) {
-            console.log(locationData);
-            getCurrentWeather(locationData[0].lat, locationData[0].lon)
+        .then(function (cityData) {
+            console.log(cityData);
             // var lat = data[0].lat;
             // var lon = data[0].lon;
         });
 }
 
 function getCurrentWeather(lat, lon) {
-    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily&appid=" + APIkey + "&units=imperial")
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + cityData[0].lat + "&lon=" + cityData[0].lon + "&exclude=minutely,hourly,daily&appid=" + APIkey + "&units=imperial")
         .then(function (response) {
             return response.json()
         })
