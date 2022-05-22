@@ -2,41 +2,37 @@ var APIkey = "949b5169e84da962b9543928a075f3b6"
 let locations = [];
 
 
-function getWeatherData(lat, lon, city) {
+function getWeather(lat, lon, city) {
 
     var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=,minutely,hourly,alerts&appid=" + APIkey;
 
-    // Here we run our AJAX call to the OpenWeatherMap API
+    // this AJAX request gets the data from the open weathermap
     $.ajax({
         url: queryURL,
         method: "GET"
     })
-        // We store all of the retrieved data inside of an object called "response"
+        // the data is then stored in the .then statement and passed to the function showWeather
         .then(function (response) {
 
-            // console.log(response);
-
-            showWeatherData(response, city);
+            showWeather(response, city);
 
         });           
  };
 
 
- //call the weather API based on ZipCode and call the fucntion showWeatherData to load the values
-function loadWeatherZip(zip, isClicked) {
+ // this function calls the weather API based on the zip code
+function loadWeatherZip(zipCode, isClicked) {
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?zip=" + zipCpde + ",us&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?zip=" + zipCode + ",us&appid=" + APIkey;
     var weatherContainer = $("#weatherContainer");
 
-    // Here we run our AJAX call to the OpenWeatherMap API
+    // this AJAX request gets the data from the open weathermap, like in the previous function
     $.ajax({
         url: queryURL,
         method: "GET"
     })
-        // We store all of the retrieved data inside of an object called "response"
+        // the data is then stored in the .then statement and passed to the function getWeather
         .then(function (response) { 
-
-            console.log(response);
 
             if (!isClicked)
             {
@@ -45,78 +41,89 @@ function loadWeatherZip(zip, isClicked) {
             }
 
 
-            //load weather
-            getWeatherData(response.city.coord.lat, response.city.coord.lon, response.city.name);
+            //loads the relevant location data to call the weather
+            getWeather(response.city.coord.lat, response.city.coord.lon, response.city.name);
 
-        }).catch(function (response){
+        })
+        //  and this catch returns an error message if the process goes wonky
+        .catch(function (response){
             alert("Not a vaild Zip Code")
         });
 }
 
+ // this function calls the weather API based on the city
 function loadWeatherCity(city, isClicked) {
     
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&appid=" + APIkey;
     var weatherContainer = $("#weatherContainer");
 
-    // Here we run our AJAX call to the OpenWeatherMap API
+    // this AJAX request gets the data from the open weathermap, like in the previous function
     $.ajax({
         url: queryURL,
         method: "GET"
     })
-        // We store all of the retrieved data inside of an object called "response"
+        // the data is then stored in the .then statement and passed to the function getWeather
         .then(function (response) {
 
             console.log(response);
 
             if (!isClicked)
             {
-                saveLocations(response);  //save the city and zip to local storage
+                saveLocations(response);  //save the city to local storage
                 renderLocations();
             }
 
-            //load weather
-            getWeatherData(response.city.coord.lat, response.city.coord.lon, response.city.name);
+            //loads the relevant location data to call the weather
+            getWeather(response.city.coord.lat, response.city.coord.lon, response.city.name);
 
-        }).catch(function(response){
+        })
+        //  and this catch returns an error message if the process goes wonky
+        .catch(function(response){
             alert("Not a valid City");
         });
 }
 
-function showWeatherData(weatherData, city)
+//  this function loads the weather data
+function showWeather(weatherData, city)
 {
-    //load current
-    var iconURL = "http://openweathermap.org/img/w/" + weatherData.current.weather[0].icon + ".png";  //get weather icon
-    $("#cityDate").html(city + " (" + new Date().toLocaleDateString() + ") <img id=\"icon\" src=\"" + iconURL  + "\" alt=\"Weather icon\"/>");
+    // this vairable contains the relevant iconography contained in the openweather api for the current weather
+    var iconURL = "http://openweathermap.org/img/w/" + weatherData.current.weather[0].icon + ".png"; 
+    // this data gets passed into the current weather card to display the relevant icon associated with theapi
+    $("#currentCard").html(city + " (" + new Date().toLocaleDateString() + ") <img id=\"icon\" src=\"" + iconURL  + "\" alt=\"Weather icon\"/>");
 
+    // the temp variable gathers the temperature in Kelvin and math is applied to change it into Farenheit
     var temp = parseInt(weatherData.current.temp);
     temp = Math.round(((temp-273.15)*1.8) + 32);
     $("#currentTemp").html(" " + temp +  "  &degF");
+    // while the humidity and wind speed are used directly from the api
     $("#currentHumidity").html(weatherData.current.humidity + "%");
     $("#currentWindSpeed").html(weatherData.current.wind_speed + " MPH");
 
-    //get the current uv index and store in the uvIndex.current array 
+    //this variable obtains the UV index from the api...
     var uvIndex = weatherData.current.uvi;
 
-    var bgColor = "";  //holds the background color for UV Index
-    var textColor = "";  //holds the text color for UV Index
+    var uvBgColor = "";  
+    var uvTextColor = "";  
 
+    // and changes the color relevant to the level of the UV index...
     if (uvIndex < 3) //if uv index is low (1-2)
     {
-        bgColor = "bg-success";
-        textColor = "text-light";  
+        uvBgColor = "bg-success";
+        uvTextColor = "text-light";  
     }
     else if (uvIndex > 2 && uvIndex < 6)  //if uv index is mocerate (3-5)
     {
-        bgColor = "bg-warning";
-        textColor = "text-dark";             
+        uvBgColor = "bg-warning";
+        uvTextColor = "text-dark";             
     }
     else  //if uv index is high (6+)
     {
-        bgColor = "bg-danger";
-        textColor = "text-light";            
+        uvBgColor = "bg-danger";
+        uvTextColor = "text-light";            
     }
 
-    $("#currentUVIndex").html(uvIndex).addClass(bgColor + " p-1 " +  textColor); //set the UVIndex and color to the html
+    // this code places the UV data within the current weather card on the html page
+    $("#currentUvIndex").html(uvIndex).addClass(bgColor + " p-1 " +  textColor); 
 
 
     //load 5 Day

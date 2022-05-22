@@ -19,6 +19,8 @@
         <h1>Weather Dashboard</h1>
       </div>
     </div>
+
+    <!-- creates the search bar for the city input -->
     <div class="row">
       <div id="zipCodeContainer" class="col-4 zipCode text-left font-weight-bold">
         <p>Search for a City:</p>
@@ -29,17 +31,19 @@
         </div>
         <div id="locationHistory" class="list-group">
         </div>
+        
+        <!-- creates the cards containing the weather data for the 5 day forcast -->
       </div>
         <div class="col-8 h-50 pr-0 pt-3">
           <div id="weatherData">
             <div id="currentWeather" class="border-light">
               <div class="card">
                 <div class="card-body">
-                  <h5 id="cityDate" class="card-title"></h5>
+                  <h5 id="currentCard" class="card-title"></h5>
                   <p class="card-text"><span>Temperature: </span><span id="currentTemp"></span></p>
                   <p class="card-text"><span>Humidity: </span><span id="currentHumidity"></span></p>
                   <p class="card-text"><span>Wind Speed: </span><span id="currentWindSpeed"></span></p>
-                  <p class="card-text"><span>UV Index: </span><span id="currentUVIndex" class="d-inline-block"></span></p>
+                  <p class="card-text"><span>UV Index: </span><span id="currentUvIndex" class="d-inline-block"></span></p>
                 </div>
               </div>
             </div>
