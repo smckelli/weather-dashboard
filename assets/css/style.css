@@ -1,29 +1,4 @@
 
-<<<<<<< HEAD
-
-header {
-  background-image: linear-gradient(to right, rgb(108, 108, 224) , rgb(31, 15, 121));
-  color: white;
-  text-align: center;
-}
-
-label {
-  font-size: 32px;
-}
-
-form {
-  border-bottom: 2px solid black;
-  padding: 0 0 20px 0;
-}
-
-button {
-  background-image: linear-gradient(to right, rgb(108, 108, 224) , rgb(31, 15, 121));
-  margin: 20px 0 0 0 ;
-}
-button:hover {
-  background-image: linear-gradient(to right, rgb(31, 15, 121) , rgb(108, 108, 224));
-}
-=======
 .title {
     height: 80px;
     background-color: black;
@@ -31,4 +6,3 @@ button:hover {
     padding: 15px;
     
   }
->>>>>>> feature/html
