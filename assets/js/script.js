@@ -99,31 +99,29 @@ function showWeather(weatherData, city)
     $("#currentHumidity").html(weatherData.current.humidity + "%");
     $("#currentWindSpeed").html(weatherData.current.wind_speed + " MPH");
 
-    //this variable obtains the UV index from the api...
+    //get the current uv index and store in the uvIndex.current array 
     var uvIndex = weatherData.current.uvi;
 
-    var uvBgColor = "";  
-    var uvTextColor = "";  
+    var bgColor = "";  //holds the background color for UV Index
+    var textColor = "";  //holds the text color for UV Index
 
-    // and changes the color relevant to the level of the UV index...
     if (uvIndex < 3) //if uv index is low (1-2)
     {
-        uvBgColor = "bg-success";
-        uvTextColor = "text-light";  
+        bgColor = "bg-success";
+        textColor = "text-light";  
     }
     else if (uvIndex > 2 && uvIndex < 6)  //if uv index is mocerate (3-5)
     {
-        uvBgColor = "bg-warning";
-        uvTextColor = "text-dark";             
+        bgColor = "bg-warning";
+        textColor = "text-dark";             
     }
     else  //if uv index is high (6+)
     {
-        uvBgColor = "bg-danger";
-        uvTextColor = "text-light";            
+        bgColor = "bg-danger";
+        textColor = "text-light";            
     }
 
-    // this code places the UV data within the current weather card on the html page
-    $("#currentUvIndex").html(uvIndex).addClass(bgColor + " p-1 " +  textColor); 
+    $("#currentUVIndex").html(uvIndex).addClass(bgColor + " p-1 " +  textColor); //set the UVIndex and color to the html
 
 
     //load 5 Day
