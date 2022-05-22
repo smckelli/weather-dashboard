@@ -2,74 +2,62 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>⛈ Weather 🌞</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <!-- local css -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Weather Dashboard</title>
 </head>
 
 <body>
-
-    <div id="weaCont" class="container mb-auto mt-4" >
-        <div id="weather" class="row">
-            <div id="title" class="col-12 title text-center font-weight-bold">
-                <h1>Weather Dashboard</h1>
-            </div>
-        </div>
+  <div id="weatherContainer" class="container mb-3 mt-3">
+    <div id="weather" class="row">
+      <div id="title" class="col-12 title text-center font-weight-bold">
+        <h1>Weather Dashboard</h1>
+      </div>
     </div>
-
-
-    <div class="container">
-        <div class="row">
-            <div class="card col-4 bg-light">
-                <form>
-                    <h2 class ="search-city">Search for a City:</h2>
-                    <div class="form-row">
-                        <input id="search-city" class="form-control" name="city" placeholder = "Enter City"></input>
-                    </div>
-                </form>
-                <button class="btn btn-primary mb-3" type="button" id="search">Search</button>
-                <form id="history"></form>
+    <div class="row">
+      <div id="zipCodeContainer" class="col-4 zipCode text-left font-weight-bold">
+        <p>Search for a City:</p>
+        <div class="input-group">
+          <input id="zipCode" type="search" class="form-control rounded " placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" />
+          <button id="searchBtn" type="button" class="SearchBtn btn-outline-primary">search</button>
+        </div>
+        <div id="locationHistory" class="list-group">
+        </div>
+      </div>
+        <div class="col-8 h-50 pr-0 pt-3">
+          <div id="weatherData">
+            <div id="currentWeather" class="border-light">
+              <div class="card">
+                <div class="card-body">
+                  <h5 id="cityDate" class="card-title"></h5>
+                  <p class="card-text"><span>Temperature: </span><span id="currentTemp"></span></p>
+                  <p class="card-text"><span>Humidity: </span><span id="currentHumidity"></span></p>
+                  <p class="card-text"><span>Wind Speed: </span><span id="currentWindSpeed"></span></p>
+                  <p class="card-text"><span>UV Index: </span><span id="currentUVIndex" class="d-inline-block"></span></p>
+                </div>
+              </div>
             </div>
-
-    <main>
-        <!-- Search bar, button, and past searches -->
-        <section class="row search">
-            <form class= "col-md-3">
-                <div class="form-group">
-                  <label for="srch-bar">Search for a City:</label>
-                  <input type="text" class="form-control" id="srch-bar" placeholder="Enter City...">
-                
-                <button id ="srch-btn" type="submit" class="btn btn-lg btn-primary form-control" onclick = "getCity();" >Submit</button>
+            <div id="5DayWeather">
+              <h3>5-Day Forecast:</h3>
+              <div>
+                <div id="fiveDay" class="d-flex justify-content-between ">
+                </div>
+              </div>
             </div>
-            </form>
-
-            <div class = "col-md-9 border border-dark border-3 rounded">
-                <h1>Current Weather:</h1>
-              <p>Temperature:</p>
-              <p>Humidity:</p>
-              <p>Wind:</p>
-              <p>UV Index:</p>
-            </div>
-        
-                
-            
-            <ul id="search-list"></ul>
-        </section>
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- moment.js -->
+          </div>
+        </div>
+      
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <!-- Custom Script -->
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
