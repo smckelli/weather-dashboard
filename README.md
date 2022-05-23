@@ -25,3 +25,14 @@ THEN I am again presented with current and future conditions for that city
 
 ![image](./assets/images/screenshot.png)
 
+
+# Links
+
+Github repository- https://github.com/smckelli/weather-dashboard
+
+Github website- https://smckelli.github.io/weather-dashboard/
+
+
+# Challenges
+
+This has been an exceptionally difficult challenge for me for a number of reasons, mostly due to personal committments away from the bootcamp during this instructional week. Most if not all of the credit for this assignment goes to Jody Brzovski for supplying the bulk of the code. Her repo is located here https://github.com/JodyBrzo/weather-dashboard. Upon revisiting this assignment I find the assignment to still be very difficult for me. Through her code I was able to walk through a successful code and understand the code in a way I would have never been able to develop myself entirely. 
