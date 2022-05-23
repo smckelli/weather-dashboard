@@ -37,7 +37,7 @@ function loadWeatherZip(zipCode, isClicked) {
             if (!isClicked)
             {
                 saveLocations(response);  //save the city and zip to local storage
-                renderLocations();
+                persistLocations();
             }
 
 
@@ -70,7 +70,7 @@ function loadWeatherCity(city, isClicked) {
             if (!isClicked)
             {
                 saveLocations(response);  //save the city to local storage
-                renderLocations();
+                persistLocations();
             }
 
             //loads the relevant location data to call the weather
@@ -99,23 +99,23 @@ function showWeather(weatherData, city)
     $("#currentHumidity").html(weatherData.current.humidity + "%");
     $("#currentWindSpeed").html(weatherData.current.wind_speed + " MPH");
 
-    //get the current uv index and store in the uvIndex.current array 
+    //this variable is assigned to the current weather UV index from the API
     var uvIndex = weatherData.current.uvi;
 
-    var bgColor = "";  //holds the background color for UV Index
-    var textColor = "";  //holds the text color for UV Index
+    var bgColor = "";  
+    var textColor = "";  
 
-    if (uvIndex < 3) //if uv index is low (1-2)
+    if (uvIndex < 3) 
     {
         bgColor = "bg-success";
         textColor = "text-light";  
     }
-    else if (uvIndex > 2 && uvIndex < 6)  //if uv index is mocerate (3-5)
+    else if (uvIndex > 2 && uvIndex < 6)  
     {
         bgColor = "bg-warning";
         textColor = "text-dark";             
     }
-    else  //if uv index is high (6+)
+    else  
     {
         bgColor = "bg-danger";
         textColor = "text-light";            
@@ -124,26 +124,30 @@ function showWeather(weatherData, city)
     $("#currentUVIndex").html(uvIndex).addClass(bgColor + " p-1 " +  textColor); //set the UVIndex and color to the html
 
 
-    //load 5 Day
+    //the 5 day weather forcast cards
     var ul5 = $("#fiveDay");
     ul5.empty();
 
-    for (i=1; i < 6; i++)  //we want the days 1-5
+    for (i=1; i < 6; i++)  // counting the 5 days
     {
-        //make the elements to display the 5 day forecast and append to the parent div
+        //make and display the elements for each day of the 5 day forcast
         var div = $("<div>").addClass("bg-primary");
 
+        // create the date and iconography for the weather for each day
         var dateTime = parseInt(weatherData.daily[i].dt); 
-        var dateHeading = $("<h6>").text(new Date(dateTime * 1000).toLocaleDateString());  //convert unix time to javascript date
-        var iconDayURL = "http://openweathermap.org/img/w/" + weatherData.daily[i].weather[0].icon + ".png";  //get weather icon
+        var dateHeading = $("<h6>").text(new Date(dateTime * 1000).toLocaleDateString());  
+        var iconDayURL = "http://openweathermap.org/img/w/" + weatherData.daily[i].weather[0].icon + ".png";  
         var icon = $("<img>").attr("src", iconDayURL);
 
-        temp = parseInt(weatherData.daily[i].temp.day);  //convert kelvin to Fahrenheit
-        temp = Math.round(((temp-273.15)*1.8) + 32);  //convert kelvin to Fahrenheit
+        // parse out the weather for the forecasted day and do the temperature math from Kelvin
+        temp = parseInt(weatherData.daily[i].temp.day);  
+        temp = Math.round(((temp-273.15)*1.8) + 32);  
         var temp5 = $("<p>").html("Temp: " + temp +  "  &degF");
 
+        // grab the humidity data from the API
         var humidity5 = $("<p>").html("Humidity: " + weatherData.daily[i].humidity + "%");
 
+        // append the html
         div.append(dateHeading);
         div.append(icon);
         div.append(temp5);
@@ -155,24 +159,24 @@ function showWeather(weatherData, city)
     $("#weatherData").show();
 }
 
-//load locations from local storage to the locations array
+//this function remembers past city data search requests to use later, pulling them out of local storage
 function loadLocations()
 {
     var locationsArray = localStorage.getItem("locations");
     if (locationsArray) //if not undefined
     {
       locations = JSON.parse(locationsArray);  //make sure there is a locations object in local storage
-      renderLocations();
+      persistLocations();
     }
     else {
       localStorage.setItem("locations", JSON.stringify(locations));  //if not make one and store it to local storage
     }
 }
 
-function renderLocations()
+function persistLocations()
 {
     var divLocations = $("#locationHistory");
-    divLocations.empty();  //clear the cities list before rendering it from the local storage object
+    divLocations.empty();  //clears the cities list before grabbing it from the local storage object
 
     $.each(locations, function(index, item){
         var a = $("<a>").addClass("list-group-item list-group-item-action city").attr("data-city", locations[index]).text(locations[index]);
@@ -194,11 +198,11 @@ function renderLocations()
 //save locations to the locations array and local storage
 function saveLocations(data)
 {
-
-    var city = data.city.name; //get the city came
+// this variable gets the saved city name
+    var city = data.city.name;
 
     locations.unshift(city);
-    localStorage.setItem("locations", JSON.stringify(locations));  //convert to a string and sent to local storage
+    localStorage.setItem("locations", JSON.stringify(locations)); 
 
 }
 
